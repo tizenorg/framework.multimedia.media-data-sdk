@@ -6,6 +6,6 @@
         </provide>
     </define>
     <request>
-        <domain name="_"/>
+        <domain name="media-server"/>
     </request>
 </manifest>

@@ -11,5 +11,6 @@ INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/data/Downloads DESTINATION media PATTERN "
 
 # install media-data database 
 ## thumbnails
-INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/data/dbspace/file-manager-service DESTINATION data)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/data/dbspace/file-manager-service/plugin-config DESTINATION data/file-manager-service)
+INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/data/dbspace/file-manager-service/.thumb DESTINATION media)
 
