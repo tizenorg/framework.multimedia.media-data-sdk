@@ -2,7 +2,7 @@
 
 Name:       media-data-sdk
 Summary:    Media data for SDK. Image/Sounds/Videos and Others.
-Version: 0.1.43
+Version: 0.1.44
 Release:    1
 Group:      TO_BE/FILLED_IN
 License:    Apache License, Version 2.0
@@ -151,6 +151,8 @@ if [ -f /opt/usr/dbspace/.media.db ]
 then
 	chsmack -a 'media-data::db' /opt/usr/dbspace/.media.db*
 fi
+
+chsmack -a 'media-server' /opt/usr/data/file-manager-service
 
 %files
 %manifest media-data-sdk.manifest
