@@ -2,13 +2,14 @@
 
 Name:       media-data-sdk
 Summary:    Media data for SDK. Image/Sounds/Videos and Others.
-Version: 0.1.44
+Version: 0.1.45
 Release:    1
 Group:      TO_BE/FILLED_IN
 License:    Apache License, Version 2.0
 Source0:    %{name}-%{version}.tar.gz
 Requires(post): coreutils
 Requires(post): sqlite
+Requires: media-server
 BuildRequires: cmake
 
 %description
