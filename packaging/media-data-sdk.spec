@@ -77,7 +77,12 @@ sqlite3 %{buildroot}/opt/usr/dbspace/.media.db 'PRAGMA journal_mode = PERSIST;
 	SELECT 
 		playlist_id, name, thumbnail_path, 0, 0, -1, NULL, NULL, -1, -1, -1, -1, -1, NULL, NULL, -1, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -1, -1, -1, -1, -1, -1, -1, -1, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -1, -1, -1, -1, -1, -1, NULL, -1 FROM playlist 
 	WHERE playlist_id 
-	NOT IN (select playlist_id from playlist_map);
+	NOT IN (select playlist_id from playlist_map)
+	UNION
+	SELECT
+		playlist_id, name, thumbnail_path, 0, 0, -1, NULL, NULL, -1, -1, -1, -1, -1, NULL, NULL, -1, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -1, -1, -1, -1, -1, -1, -1, -1, -1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -1, -1, -1, -1, -1, -1, NULL, -1 FROM playlist 
+	WHERE playlist_id
+	IN (select pm.playlist_id from playlist_map AS pm INNER JOIN media AS m ON (pm.media_uuid= m.media_uuid) AND m.validity=0);
 
 	CREATE VIEW IF NOT EXISTS tag_view AS
 	SELECT 
