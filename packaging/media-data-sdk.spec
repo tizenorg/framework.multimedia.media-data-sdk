@@ -28,12 +28,20 @@ make %{?jobs:-j%jobs}
 %make_install
 
 #remove unusing files
-rm %{buildroot}/opt/usr/media/Sounds/Voice\ recorder/.gitignore
+rm %{buildroot}/opt/usr/media/Videos/.gitignore
+rm %{buildroot}/opt/usr/media/Images/*
+rm %{buildroot}/opt/usr/media/Downloads/.gitignore
+rm %{buildroot}/opt/usr/share/media/.thumb/phone/*
+rm %{buildroot}/opt/usr/share/media/.thumb/mmc/*
+rm %{buildroot}/opt/usr/media/Sounds/Voice\ Recorder/.gitignore
 rm %{buildroot}/opt/usr/media/Music/.gitignore
+rm %{buildroot}/opt/usr/media/Documents/.gitignore
+rm %{buildroot}/opt/usr/media/Others/.gitignore
+rm %{buildroot}/opt/usr/media/DCIM/.gitignore
 
 #Create DB
 mkdir -p %{buildroot}/opt/usr/dbspace
-sqlite3 %{buildroot}/opt/usr/dbspace/.media.db 'PRAGMA journal_mode = PERSIST; PRAGMA user_version=1;'
+sqlite3 %{buildroot}/opt/usr/dbspace/.media.db 'PRAGMA journal_mode = PERSIST; PRAGMA user_version=3;'
 
 #License
 mkdir -p %{buildroot}/%{_datadir}/license
@@ -45,25 +53,22 @@ mkdir /opt/usr/data/file-manager-service
 chsmack -a 'media-server' /opt/usr/data/file-manager-service
 
 #change permission
-chmod 664 /opt/usr/dbspace/.media.db
-chmod 664 /opt/usr/dbspace/.media.db-journal
+chmod 644 /opt/usr/dbspace/.media.db
+chmod 644 /opt/usr/dbspace/.media.db-journal
 chmod 775 /opt/usr/data/file-manager-service
-chmod 775 /opt/usr/media/.thumb
-chmod 775 /opt/usr/media/.thumb/phone
-chmod 775 /opt/usr/media/.thumb/mmc
+chmod 775 /opt/usr/share/media/.thumb
+chmod 775 /opt/usr/share/media/.thumb/phone
+chmod 775 /opt/usr/share/media/.thumb/mmc
 
 #change owner
 chown -R 5000:5000 /opt/usr/media/*
 
 #change group (6017: db_filemanager 5000: app)
 chgrp 5000 /opt/usr/dbspace
-chgrp 6017 /opt/usr/dbspace/.media.db
-chgrp 6017 /opt/usr/dbspace/.media.db-journal
+chgrp 5000 /opt/usr/dbspace/.media.db
+chgrp 5000 /opt/usr/dbspace/.media.db-journal
 chgrp 5000 /opt/usr/data/file-manager-service/
-chgrp 5000 /opt/usr/media/.thumb
-chgrp 5000 /opt/usr/media/.thumb/phone
-chgrp 5000 /opt/usr/media/.thumb/phone/.[a-z0-9]*.*
-chgrp 5000 /opt/usr/media/.thumb/mmc
+chgrp -R 5000 /opt/usr/share/media/.thumb
 
 #SMACK for DB
 if [ -f /opt/usr/dbspace/.media.db ]
@@ -71,10 +76,21 @@ then
 	chsmack -a 'media-data::db' /opt/usr/dbspace/.media.db*
 fi
 
+chsmack -a 'system::media' /opt/usr/share/media
+chsmack -a 'system::media' /opt/usr/share/media/.thumb
+chsmack -a 'system::media' /opt/usr/share/media/.thumb/phone
+chsmack -a 'system::media' /opt/usr/share/media/.thumb/mmc
+chsmack -a 'system::media' /opt/usr/share/media/.thumb/thumb_default.png
+
+chsmack -t /opt/usr/share/media
+chsmack -t /opt/usr/share/media/.thumb
+chsmack -t /opt/usr/share/media/.thumb/phone
+chsmack -t /opt/usr/share/media/.thumb/mmc
+
 %files
 %manifest media-data-sdk.manifest
 %defattr(-,root,root,-)
-%{_optdir}/media/.thumb/*
+%{_optdir}/share/media/.thumb/*
 %{_optdir}/media/*
 %attr(660,root,app) /opt/usr/dbspace/.media.db
 %attr(660,root,app) /opt/usr/dbspace/.media.db-journal
