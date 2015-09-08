@@ -1,0 +1,24 @@
+<manifest>
+    <define>
+        <domain name="media-data"/>
+        <provide>
+            <label name="media-data::db"/>
+        </provide>
+    </define>
+    <request>
+        <domain name="media-server"/>
+    </request>
+    <assign>
+            <filesystem path="/opt/usr/share/media/.thumb" label="system::media" type="transmutable"/>
+            <filesystem path="/opt/usr/share/media/.thumb/phone" label="system::media" type="transmutable"/>
+            <filesystem path="/opt/usr/share/media/.thumb/mmc" label="system::media" type="transmutable"/>
+            <filesystem path="/opt/usr/media/Images" label="system::media" type="transmutable"/>
+            <filesystem path="/opt/usr/media/Sounds" label="system::media" type="transmutable"/>
+            <filesystem path="/opt/usr/media/Videos" label="system::media" type="transmutable"/>
+            <filesystem path="/opt/usr/media/DCIM" label="system::media" type="transmutable"/>
+            <filesystem path="/opt/usr/media/Downloads" label="system::media" type="transmutable"/>
+            <filesystem path="/opt/usr/media/Documents" label="system::media" type="transmutable"/>
+            <filesystem path="/opt/usr/media/Music" label="system::media" type="transmutable"/>
+            <filesystem path="/opt/usr/media/Others" label="system::media" type="transmutable"/>
+    </assign>
+</manifest>
