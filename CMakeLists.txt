@@ -16,4 +16,3 @@ INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/data/Others DESTINATION media PATTERN "*" 
 ## thumbnails
 INSTALL(DIRECTORY ${CMAKE_BINARY_DIR}/data/etc/thumb/ DESTINATION share/media/.thumb)
 
-
